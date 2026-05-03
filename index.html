@@ -1405,20 +1405,20 @@ const VIP_PACKAGES=[
   {name:"VIP ELITE",price:5000,style:"purple",badge:"Recommended",button:"Pilih VIP Elite",icon:"fa-crown",features:[
     [true,"Jaringan lancar"],[true,"Akses 1 tahun"],[true,"Emote bisa dibawa loby"],[true,"Evo bisa dibawa loby"],[true,"Tembus teman satu loby"],[false,"Tidak Tembus in game"],[false,"Tanpa Key Login"]
   ]},
-  {name:"VIP ULTIMATE",price:7000,originalPrice:8000,style:"gold",badge:"Gold Access",button:"Pilih VIP Ultimate",icon:"fa-star",features:[
+  {name:"VIP ULTIMATE",price:8000,style:"gold",badge:"Gold Access",button:"Pilih VIP Ultimate",icon:"fa-star",features:[
     [true,"Jaringan lancar"],[true,"Akses 1 tahun"],[true,"Emote bisa dibawa loby"],[true,"Evo bisa dibawa loby"],[true,"Tembus teman satu loby"],[true,"Tembus in game"],[false,"Tanpa Key Login"]
   ]},
-  {name:"VIP MAX",price:9000,originalPrice:12000,style:"max",badge:"Super Premium",button:"Pilih VIP MAX",icon:"fa-gem",features:[
+  {name:"VIP MAX",price:12000,style:"max",badge:"Super Premium",button:"Pilih VIP MAX",icon:"fa-gem",features:[
     [true,"Jaringan lancar"],[true,"Akses 1 tahun"],[true,"Emote bisa dibawa loby"],[true,"Evo bisa dibawa loby"],[true,"Tembus teman satu loby"],[true,"Tembus in game"],[true,"Tanpa Key Login"]
   ]}
 ];
 const UPGRADE_REQS={
   "VIP BASIC|VIP ELITE":4000,
-  "VIP ELITE|VIP ULTIMATE":6000,
-  "VIP ULTIMATE|VIP MAX":8000,
-  "VIP BASIC|VIP ULTIMATE":7000,
-  "VIP BASIC|VIP MAX":10000,
-  "VIP ELITE|VIP MAX":9000
+  "VIP ELITE|VIP ULTIMATE":3000,
+  "VIP ULTIMATE|VIP MAX":4000,
+  "VIP BASIC|VIP ULTIMATE":5000,
+  "VIP BASIC|VIP MAX":9000,
+  "VIP ELITE|VIP MAX":7000
 };
 const PACKAGE_TITLES=VIP_PACKAGES.map(p=>p.name);
 function getPackageByName(name){return VIP_PACKAGES.find(p=>p.name===String(name||"").trim())||null}
@@ -1466,13 +1466,12 @@ function go(id){clearInterval(payTimerInterval);clearInterval(orderTimerInterval
 function openFreeDownload(){playClick();window.open(DATA.freeApk,"_blank","noopener")}
 function downloadBeta(){playClick();window.open(DATA.betaApk,"_blank","noopener")}
 function populateCountries(){const s=$("server");s.innerHTML=COUNTRIES.map(c=>`<option value="${c}" ${c==="Indonesia"?"selected":""}>${c}</option>`).join("")}
-function renderPackages(){const grid=$("packageGrid");const current=order.packageName?getPackageByName(order.packageName):null;renderUpgradeInfo();grid.innerHTML=VIP_PACKAGES.map(pkg=>{const currentIndex=current?getPackageIndex(current.name):-1;const targetIndex=getPackageIndex(pkg.name);const diff=current&&targetIndex>currentIndex?getUpgradeReq(current.name,pkg.name):0;const isCurrent=current&&pkg.name===current.name;const isUpgrade=current&&targetIndex>currentIndex;const label=!current?pkg.button:isCurrent?"Paket Aktif":isUpgrade?`Upgrade +${rupiah(diff)}`:pkg.button;const action=!current?`selectPackage('${pkg.name}',${pkg.price})`:isCurrent?`toast('Paket aktif kamu sudah ${pkg.name}.')`:isUpgrade?`upgradePackage('${pkg.name}')`:`selectPackage('${pkg.name}',${pkg.price})`;const hasPromo=Number(pkg.originalPrice||0)>Number(pkg.price||0);return `
+function renderPackages(){const grid=$("packageGrid");const current=order.packageName?getPackageByName(order.packageName):null;renderUpgradeInfo();grid.innerHTML=VIP_PACKAGES.map(pkg=>{const currentIndex=current?getPackageIndex(current.name):-1;const targetIndex=getPackageIndex(pkg.name);const diff=current&&targetIndex>currentIndex?getUpgradeReq(current.name,pkg.name):0;const isCurrent=current&&pkg.name===current.name;const isUpgrade=current&&targetIndex>currentIndex;const label=!current?pkg.button:isCurrent?"Paket Aktif":isUpgrade?`Upgrade +${rupiah(diff)}`:pkg.button;const action=!current?`selectPackage('${pkg.name}',${pkg.price})`:isCurrent?`toast('Paket aktif kamu sudah ${pkg.name}.')`:isUpgrade?`upgradePackage('${pkg.name}')`:`selectPackage('${pkg.name}',${pkg.price})`;return `
   <div class="package-card ${pkg.style}" onclick="pressCard(this)" role="button" tabindex="0" aria-label="${pkg.name}">
     <div>
       <div class="pkg-head"><div class="pkg-head-icon"><i class="fas ${pkg.icon}"></i></div><span class="pkg-badge">${pkg.badge}</span></div>
       <div class="pkg-name">${pkg.name}</div>
-      <div class="pkg-price">${hasPromo?`<span class="old-price">${rupiah(pkg.originalPrice)}</span>`:""}<span class="new-price">${rupiah(pkg.price)}</span> <small>/ order</small></div>
-      ${hasPromo?`<div class="promo-tag">PROMO</div>`:""}
+      <div class="pkg-price"><span class="new-price">${rupiah(pkg.price)}</span> <small>/ order</small></div>
      
       <div class="feature-list">${pkg.features.map(([ok,text])=>`<div class="${ok?'yes':'no'}"><i class="fas ${ok?'fa-check':'fa-xmark'}"></i><span>${text}</span></div>`).join("")}</div>
     </div>
@@ -1480,7 +1479,7 @@ function renderPackages(){const grid=$("packageGrid");const current=order.packag
   </div>`}).join("");
 }
 function renderVipCompare(){if(!$("vipCompareTable"))return;const rows=[
-  ["Harga",...VIP_PACKAGES.map(p=>Number(p.originalPrice||0)>Number(p.price||0)?`<span class="old-price">${rupiah(p.originalPrice)}</span><span class="new-price">${rupiah(p.price)}</span>`:rupiah(p.price))],
+  ["Harga",...VIP_PACKAGES.map(p=>rupiah(p.price))],
   ["Upgrade req","-",...VIP_PACKAGES.slice(1).map((p,i)=>rupiah(getUpgradeDiff(VIP_PACKAGES[i].name,p.name)))],
   ["Jaringan",...VIP_PACKAGES.map(()=>"Jaringan lancar")],
   ["Emote",...VIP_PACKAGES.map(()=>"Bisa dibawa loby")],
