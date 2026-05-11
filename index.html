@@ -1627,6 +1627,7 @@ function renderHistory(){
         <div class="history-detail-item"><span></span><b>${order.isUpgrade&&order.upgradeFrom?rupiah(order.price):"-"}</b></div>
       </div>
       ${order.orderReadyAt?`<div class="history-progress-card"><div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div></div>`:""}
+      <div class="copy-link-box copy-allowed mt12"><span>Link File Order</span><div class="copy-link-text">${maskMediaFireLink(DATA.betaApk)}</div><button class="ghost-btn" onclick="copyBetaLink()"><i class="fas fa-copy"></i> Salin Link File</button></div>
       <div class="history-action-panel"><button class="primary-btn" onclick="historyPrimaryAction()"><i class="fas fa-arrow-right"></i> ${historyActionText()}</button>${order.packageName&&canUpgradeFrom(order.packageName)?`<button class="ghost-btn mt12" onclick="go('screen-vip')"><i class="fas fa-arrow-up"></i> Upgrade Paket</button>`:""}</div>
     </div>`;
   if(st.key==="wait"){
