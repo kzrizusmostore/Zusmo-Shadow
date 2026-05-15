@@ -1399,26 +1399,26 @@ const DATA={
 };
 const COUNTRIES=["Indonesia","Malaysia","Singapore","Thailand","Vietnam","Philippines","Brazil","India","Bangladesh","Pakistan","Nepal","Myanmar","Cambodia","Laos","Taiwan","Hong Kong","Japan","South Korea","USA","Mexico","Argentina","Turkey","Russia","Middle East","Europe"];
 const VIP_PACKAGES=[
-  {name:"VIP BASIC",price:3000,style:"",badge:"Basic VIP",button:"Pilih VIP basic",icon:"fa-bolt",features:[
+  {name:"VIP BASIC",price:2000,style:"",badge:"Basic VIP",button:"Pilih VIP basic",icon:"fa-bolt",features:[
     [true,"Jaringan lancar"],[true,"Akses 1 tahun"],[true,"Emote bisa dibawa loby"],[true,"Evo bisa dibawa loby"],[false,"Tidak Tembus teman satu loby"],[false,"Tidak Tembus in game"],[false,"Tanpa Key Login"]
   ]},
-  {name:"VIP ELITE",price:5000,style:"purple",badge:"Recommended",button:"Pilih VIP Elite",icon:"fa-crown",features:[
+  {name:"VIP ELITE",price:4000,style:"purple",badge:"Recommended",button:"Pilih VIP Elite",icon:"fa-crown",features:[
     [true,"Jaringan lancar"],[true,"Akses 1 tahun"],[true,"Emote bisa dibawa loby"],[true,"Evo bisa dibawa loby"],[true,"Tembus teman satu loby"],[false,"Tidak Tembus in game"],[false,"Tanpa Key Login"]
   ]},
-  {name:"VIP ULTIMATE",price:8000,style:"gold",badge:"Gold Access",button:"Pilih VIP Ultimate",icon:"fa-star",features:[
+  {name:"VIP ULTIMATE",price:7000,style:"gold",badge:"Gold Access",button:"Pilih VIP Ultimate",icon:"fa-star",features:[
     [true,"Jaringan lancar"],[true,"Akses 1 tahun"],[true,"Emote bisa dibawa loby"],[true,"Evo bisa dibawa loby"],[true,"Tembus teman satu loby"],[true,"Tembus in game"],[false,"Tanpa Key Login"]
   ]},
-  {name:"VIP MAX",price:12000,style:"max",badge:"Super Premium",button:"Pilih VIP MAX",icon:"fa-gem",features:[
+  {name:"VIP MAX",price:10000,style:"max",badge:"Super Premium",button:"Pilih VIP MAX",icon:"fa-gem",features:[
     [true,"Jaringan lancar"],[true,"Akses 1 tahun"],[true,"Emote bisa dibawa loby"],[true,"Evo bisa dibawa loby"],[true,"Tembus teman satu loby"],[true,"Tembus in game"],[true,"Tanpa Key Login"]
   ]}
 ];
 const UPGRADE_REQS={
-  "VIP BASIC|VIP ELITE":4000,
-  "VIP ELITE|VIP ULTIMATE":3000,
-  "VIP ULTIMATE|VIP MAX":4000,
-  "VIP BASIC|VIP ULTIMATE":5000,
-  "VIP BASIC|VIP MAX":9000,
-  "VIP ELITE|VIP MAX":7000
+  "VIP BASIC|VIP ELITE":3000,
+  "VIP ELITE|VIP ULTIMATE":2000,
+  "VIP ULTIMATE|VIP MAX":3000,
+  "VIP BASIC|VIP ULTIMATE":4000,
+  "VIP BASIC|VIP MAX":8000,
+  "VIP ELITE|VIP MAX":6000
 };
 const PACKAGE_TITLES=VIP_PACKAGES.map(p=>p.name);
 function getPackageByName(name){return VIP_PACKAGES.find(p=>p.name===String(name||"").trim())||null}
